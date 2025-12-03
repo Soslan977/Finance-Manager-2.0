@@ -29,12 +29,12 @@ namespace Finance_Manager.UI.Forms
             var allCategories = _dbHelper.GetAllCategories();
 
             incomeCategories = allCategories
-                .Where(c => c.CategoryType)        // true = доход
+                .Where(c => c.CategoryType)        // True = доход
                 .Select(c => c.CategoryName)
                 .ToList();
 
             expenseCategories = allCategories
-                .Where(c => !c.CategoryType)      // false = расход
+                .Where(c => !c.CategoryType)      // False = расход
                 .Select(c => c.CategoryName)
                 .ToList();
         }
