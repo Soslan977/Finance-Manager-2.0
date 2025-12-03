@@ -212,11 +212,19 @@ VALUES (@CategoryId, @Amount, @Description, @TransactionDate, @IsIncome)";
                 cmd.ExecuteNonQuery();
             }
         }
+        public void DeleteCategory(int categoryId)
+        {
+            string sql = "DELETE FROM Categories WHERE Id = @Id";
+
+            using (var cmd = new SQLiteCommand(sql, _connection))
+            {
+                cmd.Parameters.AddWithValue("@Id", categoryId);
+                cmd.ExecuteNonQuery();
+            }
+        }
 
 
-
-
-        public bool CategoryExists(string categoryName)
+        public bool CategoryExists(string categoryName) // проверка на существование
         {
             string sql = "SELECT COUNT(*) FROM Categories WHERE CategoryName = @Name";
             using (var command = new SQLiteCommand(sql, _connection))
@@ -252,6 +260,23 @@ VALUES (@CategoryId, @Amount, @Description, @TransactionDate, @IsIncome)";
             }
             return null;
         }
+
+        public int GetCategoryIdByName(string name)
+        {
+            string sql = "SELECT Id FROM Categories WHERE CategoryName = @name LIMIT 1";
+
+            using (var cmd = new SQLiteCommand(sql, _connection))
+            {
+                cmd.Parameters.AddWithValue("@name", name);
+                object result = cmd.ExecuteScalar();
+
+                if (result != null && result != DBNull.Value)
+                    return Convert.ToInt32(result);
+            }
+
+            return -1;
+        }
+
         public List<(string Category, double Sum)> GetCategorySums(
       DateTime? start, DateTime? end, bool? isIncome = null)
         {

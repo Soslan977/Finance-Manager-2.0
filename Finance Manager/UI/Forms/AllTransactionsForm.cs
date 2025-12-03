@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Finance_Manager.models;
+using static Finance_Manager.UI.Forms.Dizain;
 
 
 namespace Finance_Manager.UI.Forms
@@ -20,6 +21,7 @@ namespace Finance_Manager.UI.Forms
         {
             InitializeComponent();
             _dbHelper = dbHelper;
+            ThemeManager.ApplyThemeToForm(this);
 
             InitTable();
             LoadTransactions();

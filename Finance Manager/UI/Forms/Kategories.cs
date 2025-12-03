@@ -5,11 +5,9 @@ using System.Windows.Forms;
 using System.Drawing;
 using Finance_Manager.models;
 using static Finance_Manager.UI.Forms.Dizain;
-using static Finance_Manager.UI.Forms.Dizain.ThemeManager;
-
 namespace Finance_Manager.UI.Forms
 {
-    public partial class Kategories : Form, IThemeable
+    public partial class Kategories : Form
     {
         private DatabaseHelper _dbHelper;
         private List<string> incomeCategories;
@@ -19,12 +17,11 @@ namespace Finance_Manager.UI.Forms
         {
             InitializeComponent();
             _dbHelper = new DatabaseHelper();
+            ThemeManager.ApplyThemeToForm(this);
             LoadCategoriesFromDb();
 
             listBoxIncome.DataSource = incomeCategories;
             listBoxExpense.DataSource = expenseCategories;
-            ThemeManager.ThemeChanged += OnThemeChanged;
-            ApplyTheme(ThemeManager.CurrentTheme);
         }
 
         private void LoadCategoriesFromDb()
@@ -68,7 +65,6 @@ namespace Finance_Manager.UI.Forms
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
-            ThemeManager.ThemeChanged -= OnThemeChanged;
             _dbHelper.Dispose();
             base.OnFormClosed(e);
         }
@@ -101,6 +97,31 @@ namespace Finance_Manager.UI.Forms
                 MessageBox.Show("Категория не может быть пустой!");
             }
         }
+        private void btnDeleteIncome_Click(object sender, EventArgs e)
+        {
+            string selected = listBoxIncome.SelectedItem as string;
+
+            if (selected == null)
+            {
+                MessageBox.Show("Выберите категорию для удаления!");
+                return;
+            }
+
+            if (MessageBox.Show($"Удалить категорию \"{selected}\"?",
+                "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+
+            int id = _dbHelper.GetCategoryIdByName(selected);
+
+            if (id != -1)
+            {
+                _dbHelper.DeleteCategory(id);
+                LoadCategoriesFromDb();
+
+                listBoxIncome.DataSource = null;
+                listBoxIncome.DataSource = incomeCategories;
+            }
+        }
 
         private void btnAddExpense_Click(object sender, EventArgs e)
         {
@@ -131,10 +152,37 @@ namespace Finance_Manager.UI.Forms
             }
         }
 
+        private void btnDeleteExpense_Click(object sender, EventArgs e)
+        {
+            string selected = listBoxExpense.SelectedItem as string;
+
+            if (selected == null)
+            {
+                MessageBox.Show("Выберите категорию для удаления!");
+                return;
+            }
+
+            if (MessageBox.Show($"Удалить категорию \"{selected}\"?",
+                "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+
+            int id = _dbHelper.GetCategoryIdByName(selected);
+
+            if (id != -1)
+            {
+                _dbHelper.DeleteCategory(id);
+                LoadCategoriesFromDb();
+
+                listBoxExpense.DataSource = null;
+                listBoxExpense.DataSource = expenseCategories;
+            }
+        }
+
         private void GoBack_Click(object sender, EventArgs e)
         {
             FinanceManagerMain.Instance.Show();
             this.Close();
         }
+
     }
 }

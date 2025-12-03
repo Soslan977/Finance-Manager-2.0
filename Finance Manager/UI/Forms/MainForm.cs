@@ -9,16 +9,15 @@ using System.Windows.Forms.DataVisualization.Charting;
 using Finance_Manager.models;
 using Finance_Manager.UI.Forms;
 using static Finance_Manager.UI.Forms.Dizain;
-using static Finance_Manager.UI.Forms.Dizain.ThemeManager;
 
 namespace Finance_Manager
 {
-    public partial class FinanceManagerMain : Form, IThemeable
+    public partial class FinanceManagerMain : Form
     {
         private DatabaseHelper _dbHelper;
-        private List<Transaction> transactions;
-        private List<Category> categories;
+
         public static FinanceManagerMain Instance { get; private set; }
+
         private bool menuIsVisible = false;
         public bool isIncomeMode = true;
         private DateTime? filterStart = null;
@@ -30,6 +29,7 @@ namespace Finance_Manager
             InitializeComponent();
             AddMenuItems();
             Instance = this;
+            ThemeManager.ApplyThemeToForm(this);
 
 
 
@@ -43,8 +43,6 @@ namespace Finance_Manager
             LoadDataFromDb();
 
 
-            ThemeManager.ThemeChanged += OnThemeChanged;
-            ApplyTheme(ThemeManager.CurrentTheme);
 
 
         }
@@ -138,7 +136,7 @@ namespace Finance_Manager
                     break;
 
                 case "Дизайн":
-                    ShowForm(new Dizain());
+                    ShowForm(new UI.Forms.Dizain());
                     break;
 
                 case "Валюта":
@@ -150,23 +148,14 @@ namespace Finance_Manager
 
         public void LoadDataFromDb()
         {
-            categories = _dbHelper.GetAllCategories();
-            transactions = _dbHelper.GetAllTransactions();
 
             UpdateChart();
             UpdateBalance();
         }
 
-        private void OnThemeChanged(object sender, EventArgs e)
-        {
-            ApplyTheme(ThemeManager.CurrentTheme);
-        }
+      
 
-        public void ApplyTheme(ThemeType theme)
-        {
-            this.BackColor = theme == ThemeType.Light ? System.Drawing.Color.White : System.Drawing.Color.FromArgb(30, 30, 30);
-            this.ForeColor = theme == ThemeType.Light ? System.Drawing.Color.Black : System.Drawing.Color.White;
-        }
+      
 
         private void UpdateChart()
         {
@@ -194,23 +183,13 @@ namespace Finance_Manager
                 {
                     var transaction = addForm.Transaction;
 
-
-                    // перезагружаем данные
-                    transactions = _dbHelper.GetAllTransactions();
-                    categories = _dbHelper.GetAllCategories();
-
                     UpdateChart();
                     UpdateBalance();
                 }
             }
         }
 
-        protected override void OnFormClosed(FormClosedEventArgs e)
-        {
-            ThemeManager.ThemeChanged -= OnThemeChanged;
-            _dbHelper.Dispose();
-            base.OnFormClosed(e);
-        }
+        
         private void numAmount_ValueChanged(object sender, EventArgs e)
         {
         }
@@ -260,6 +239,11 @@ namespace Finance_Manager
             {
                 form.ShowDialog();
             }
+        }
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            _dbHelper.Dispose();
+            base.OnFormClosed(e);
         }
     }
 }

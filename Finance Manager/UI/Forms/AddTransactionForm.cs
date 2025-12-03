@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Finance_Manager.models;
+using static Finance_Manager.UI.Forms.Dizain;
 
 namespace Finance_Manager.UI.Forms
 {
@@ -17,6 +18,7 @@ namespace Finance_Manager.UI.Forms
         {
             InitializeComponent();
             _dbHelper = dbHelper;
+            ThemeManager.ApplyThemeToForm(this);
 
             cmbCategory.DisplayMember = nameof(Category.CategoryName);
             cmbCategory.ValueMember = nameof(Category.Id);
@@ -62,6 +64,7 @@ namespace Finance_Manager.UI.Forms
                 cmbCategory.DataSource = null;
 
                 if (filteredCategories.Any())
+
                 {
                     cmbCategory.DataSource = filteredCategories;
                     cmbCategory.DisplayMember = nameof(Category.CategoryName);
@@ -94,7 +97,6 @@ namespace Finance_Manager.UI.Forms
 
             if (!(cmbCategory.SelectedValue is int categoryId))
             {
-                // иногда SelectedValue приходит как boxed Int64 (SQLite) -> попробуем конвертировать
                 try
                 {
                     categoryId = Convert.ToInt32(cmbCategory.SelectedValue);

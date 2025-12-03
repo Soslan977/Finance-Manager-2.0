@@ -1,112 +1,140 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
-using static Finance_Manager.UI.Forms.Dizain.ThemeManager;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Finance_Manager.UI.Forms
 {
     public partial class Dizain : Form
     {
-        // Создаём статический менеджер тем
+        public Dizain()
+        {
+            InitializeComponent();
+
+            ThemeManager.LoadTheme();
+            ThemeManager.ApplyThemeToForm(this);
+        }
+
+
+        public enum ThemeType
+        {
+            Light,
+            Dark
+        }
+
+        public static class ThemePalette
+        {
+            public static Color GetBackColor(ThemeType theme) =>
+                theme == ThemeType.Light ? Color.White : Color.FromArgb(32, 32, 32);
+
+            public static Color GetForeColor(ThemeType theme) =>
+                theme == ThemeType.Light ? Color.Black : Color.White;
+
+            public static Color GetButtonBack(ThemeType theme) =>
+                theme == ThemeType.Light ? Color.FromArgb(240, 240, 240) : Color.FromArgb(55, 55, 55);
+
+            public static Color GetInputBack(ThemeType theme) =>
+                theme == ThemeType.Light ? Color.White : Color.FromArgb(45, 45, 45);
+        }
+
         public static class ThemeManager
         {
-            private static string filePath = "theme.txt";
-            public static event EventHandler ThemeChanged;
+            private static string ThemeFile =>
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "FinanceManagerTheme.txt");
 
-            public enum ThemeType
-            {
-                Light = 0,
-                Dark = 1
-            }
+            private static ThemeType _theme = ThemeType.Light;
 
-            private static ThemeType _currentTheme;
             public static ThemeType CurrentTheme
             {
-                get => _currentTheme;
+                get => _theme;
                 set
                 {
-                    _currentTheme = value;
-                    ThemeChanged?.Invoke(null, EventArgs.Empty);
+                    if (_theme == value)
+                        return;
+
+                    _theme = value;
+                    SaveTheme();
+                    ApplyThemeToAllForms();
                 }
             }
 
-            public static void SaveTheme(ThemeType theme)
+            public static void LoadTheme()
             {
                 try
                 {
-                    File.WriteAllText(filePath, ((int)theme).ToString());
+                    if (File.Exists(ThemeFile))
+                    {
+                        string text = File.ReadAllText(ThemeFile);
+                        if (Enum.TryParse(text, out ThemeType t))
+                            _theme = t;
+                    }
                 }
                 catch { }
             }
 
-            public static ThemeType LoadTheme()
+            private static void SaveTheme()
             {
-                if (File.Exists(filePath))
+                try
                 {
-                    try
-                    {
-                        return (ThemeType)int.Parse(File.ReadAllText(filePath));
-                    }
-                    catch { }
+                    File.WriteAllText(ThemeFile, _theme.ToString());
                 }
-                return ThemeType.Light; // По умолчанию светлая тема
+                catch { }
             }
-        }
 
-        public Dizain()
-        {
-            InitializeComponent();
-            // Подписываемся на изменение темы
-            ThemeManager.ThemeChanged += OnThemeChanged;
-            // Загружаем и применяем текущую тему
-            ThemeManager.CurrentTheme = ThemeManager.LoadTheme();
-            ApplyTheme(ThemeManager.CurrentTheme);
-        }
-
-        private void OnThemeChanged(object sender, EventArgs e)
-        {
-            ApplyTheme(ThemeManager.CurrentTheme);
-        }
-
-        private void ApplyTheme(ThemeType theme)
-        {
-            ApplyControlsTheme(this, theme);
-        }
-
-        private void ApplyControlsTheme(Form form, ThemeType theme)
-        {
-            form.BackColor = theme == ThemeType.Light ? Color.White : Color.FromArgb(30, 30, 30);
-            form.ForeColor = theme == ThemeType.Light ? Color.Black : Color.White;
-
-            foreach (Control ctrl in form.Controls)
+            public static void ApplyThemeToAllForms()
             {
-                if (ctrl is Button button)
+                foreach (Form form in Application.OpenForms)
+                    ApplyThemeToForm(form);
+            }
+
+            public static void ApplyThemeToForm(Form form)
+            {
+                var theme = _theme;
+
+                form.BackColor = ThemePalette.GetBackColor(theme);
+                form.ForeColor = ThemePalette.GetForeColor(theme);
+
+                foreach (Control ctrl in form.Controls)
+                    ApplyThemeToControl(ctrl, theme);
+            }
+
+            private static void ApplyThemeToControl(Control ctrl, ThemeType theme)
+            {
+                if (ctrl is Button btn)
                 {
-                    button.ForeColor = theme == ThemeType.Light ? Color.Black : Color.White;
-                    if (button == DarkTheme)
-                    {
-                        button.BackColor = theme == ThemeType.Light ? Color.LightGray : Color.LightBlue;
-                    }
-                    else if (button == LightTheme)
-                    {
-                        button.BackColor = theme == ThemeType.Light ? Color.LightBlue : Color.LightGray;
-                        button.ForeColor = theme == ThemeType.Light ? Color.White : Color.Black;
-                    }
-                    else
-                    {
-                        button.BackColor = theme == ThemeType.Light ? Color.White : Color.FromArgb(50, 50, 50);
-                    }
+                    btn.BackColor = ThemePalette.GetButtonBack(theme);
+                    btn.ForeColor = ThemePalette.GetForeColor(theme);
                 }
-                else if (ctrl is Label label)
+                else if (ctrl is TextBox txt)
                 {
-                    label.ForeColor = theme == ThemeType.Light ? Color.Black : Color.White;
+                    txt.BackColor = ThemePalette.GetInputBack(theme);
+                    txt.ForeColor = ThemePalette.GetForeColor(theme);
+                }
+                else if (ctrl is ComboBox cb)
+                {
+                    cb.BackColor = ThemePalette.GetInputBack(theme);
+                    cb.ForeColor = ThemePalette.GetForeColor(theme);
+                }
+                else if (ctrl is Label lbl)
+                {
+                    lbl.ForeColor = ThemePalette.GetForeColor(theme);
+                }
+                else if (ctrl is Panel pnl)
+                {
+                    pnl.BackColor = ThemePalette.GetBackColor(theme);
+                }
+                else if (ctrl is GroupBox gb)
+                {
+                    gb.BackColor = ThemePalette.GetBackColor(theme);
+                    gb.ForeColor = ThemePalette.GetForeColor(theme);
+                }
+
+                if (ctrl.HasChildren)
+                {
+                    foreach (Control child in ctrl.Controls)
+                        ApplyThemeToControl(child, theme);
                 }
             }
         }
@@ -114,47 +142,16 @@ namespace Finance_Manager.UI.Forms
         private void LightTheme_Click(object sender, EventArgs e)
         {
             ThemeManager.CurrentTheme = ThemeType.Light;
-            ThemeManager.SaveTheme(ThemeType.Light);
         }
 
-        private void DarkTheme_Click_1(object sender, EventArgs e)
+        private void DarkTheme_Click(object sender, EventArgs e)
         {
             ThemeManager.CurrentTheme = ThemeType.Dark;
-            ThemeManager.SaveTheme(ThemeType.Dark);
         }
 
         private void GoBack_Click(object sender, EventArgs e)
         {
-            FinanceManagerMain.Instance.Show();
-            this.Close();
+            Close();
         }
-
-        // Добавляем метод для применения темы ко всем формам
-        public void ApplyThemeToAllForms(ThemeType theme)
-        {
-            foreach (Form form in Application.OpenForms)
-            {
-                // Проверяем, что форма поддерживает интерфейс IThemeable
-                if (form is IThemeable themeableForm)
-                {
-                    // Применяем тему только если это не текущая форма
-                    if (form != this)
-                    {
-                        themeableForm.ApplyTheme(theme);
-                    }
-                    else
-                    {
-                        // Для текущей формы применяем тему напрямую
-                        ApplyControlsTheme(form, theme);
-                    }
-                }
-            }
-        }
-    }
-
-    // Определяем интерфейс для форм, поддерживающих смену темы
-    public interface IThemeable
-    {
-        void ApplyTheme(ThemeType theme);
     }
 }

@@ -30,10 +30,12 @@
         {
             this.GoBack = new System.Windows.Forms.Button();
             this.groupBoxIncome = new System.Windows.Forms.GroupBox();
+            this.btnDeleteIncome = new System.Windows.Forms.Button();
             this.btnAddIncome = new System.Windows.Forms.Button();
             this.txtIncomeInput = new System.Windows.Forms.TextBox();
             this.listBoxIncome = new System.Windows.Forms.ListBox();
             this.groupBoxExpense = new System.Windows.Forms.GroupBox();
+            this.btnDeleteExpense = new System.Windows.Forms.Button();
             this.btnAddExpense = new System.Windows.Forms.Button();
             this.txtExpenseInput = new System.Windows.Forms.TextBox();
             this.listBoxExpense = new System.Windows.Forms.ListBox();
@@ -53,6 +55,7 @@
             // 
             // groupBoxIncome
             // 
+            this.groupBoxIncome.Controls.Add(this.btnDeleteIncome);
             this.groupBoxIncome.Controls.Add(this.btnAddIncome);
             this.groupBoxIncome.Controls.Add(this.txtIncomeInput);
             this.groupBoxIncome.Controls.Add(this.listBoxIncome);
@@ -62,6 +65,16 @@
             this.groupBoxIncome.TabIndex = 2;
             this.groupBoxIncome.TabStop = false;
             this.groupBoxIncome.Text = "Доходы";
+            // 
+            // btnDeleteIncome
+            // 
+            this.btnDeleteIncome.Location = new System.Drawing.Point(119, 536);
+            this.btnDeleteIncome.Name = "btnDeleteIncome";
+            this.btnDeleteIncome.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteIncome.TabIndex = 4;
+            this.btnDeleteIncome.Text = "Удалить";
+            this.btnDeleteIncome.UseVisualStyleBackColor = true;
+            this.btnDeleteIncome.Click += new System.EventHandler(this.btnDeleteIncome_Click);
             // 
             // btnAddIncome
             // 
@@ -92,6 +105,7 @@
             // 
             // groupBoxExpense
             // 
+            this.groupBoxExpense.Controls.Add(this.btnDeleteExpense);
             this.groupBoxExpense.Controls.Add(this.btnAddExpense);
             this.groupBoxExpense.Controls.Add(this.txtExpenseInput);
             this.groupBoxExpense.Controls.Add(this.listBoxExpense);
@@ -101,6 +115,16 @@
             this.groupBoxExpense.TabIndex = 3;
             this.groupBoxExpense.TabStop = false;
             this.groupBoxExpense.Text = "Расходы";
+            // 
+            // btnDeleteExpense
+            // 
+            this.btnDeleteExpense.Location = new System.Drawing.Point(134, 536);
+            this.btnDeleteExpense.Name = "btnDeleteExpense";
+            this.btnDeleteExpense.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteExpense.TabIndex = 5;
+            this.btnDeleteExpense.Text = "Удалить";
+            this.btnDeleteExpense.UseVisualStyleBackColor = true;
+            this.btnDeleteExpense.Click += new System.EventHandler(this.btnDeleteExpense_Click);
             // 
             // btnAddExpense
             // 
@@ -162,5 +186,7 @@
         private System.Windows.Forms.ListBox listBoxExpense;
         private System.Windows.Forms.ListBox listBoxIncome;
         private System.Windows.Forms.Button btnAddExpense;
+        private System.Windows.Forms.Button btnDeleteIncome;
+        private System.Windows.Forms.Button btnDeleteExpense;
     }
 }

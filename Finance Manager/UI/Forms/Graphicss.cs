@@ -12,7 +12,7 @@ using static Finance_Manager.UI.Forms.Dizain.ThemeManager;
 
 namespace Finance_Manager.UI.Forms
 {
-    public partial class Graphicss : Form, IThemeable
+    public partial class Graphicss : Form
     {
         private readonly DatabaseHelper _db;
         private bool isIncome = true;
@@ -23,13 +23,12 @@ namespace Finance_Manager.UI.Forms
         {
             InitializeComponent();
             _db = new DatabaseHelper();
+            ThemeManager.ApplyThemeToForm(this);
 
             LoadPieChart();
             LoadBarChart();
             LoadLineChart();
 
-            ThemeManager.ThemeChanged += OnThemeChanged;
-            ApplyTheme(ThemeManager.CurrentTheme);
         }
 
         private void ReloadCharts()
@@ -114,20 +113,7 @@ namespace Finance_Manager.UI.Forms
             FinanceManagerMain.Instance.Show();
             this.Close();
         }
-        public void ApplyTheme(ThemeManager.ThemeType theme)
-        {
-            this.BackColor = theme == ThemeManager.ThemeType.Light
-                ? Color.White
-                : Color.FromArgb(30, 30, 30);
-
-            this.ForeColor = theme == ThemeManager.ThemeType.Light
-                ? Color.Black
-                : Color.White;
-        }
-
-        private void OnThemeChanged(object sender, EventArgs e)
-        {
-            ApplyTheme(ThemeManager.CurrentTheme);
-        }
+        
+       
     }
 }
