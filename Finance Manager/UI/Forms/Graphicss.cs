@@ -103,9 +103,16 @@ namespace Finance_Manager.UI.Forms
 
         private void btnMonth_Click(object sender, EventArgs e)
         {
-            filterStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-            filterEnd = DateTime.Today;
+            var today = DateTime.Today;
+            var firstDayOfCurrentMonth = new DateTime(today.Year, today.Month, today.Day);
+            var firstDayOfLastMonth = firstDayOfCurrentMonth.AddMonths(-1);
+
+            filterStart = firstDayOfLastMonth;
+
+            filterEnd = today.AddDays(1).AddTicks(-1);
             ReloadCharts();
+
+
         }
 
         private void GoBack_Click(object sender, EventArgs e)

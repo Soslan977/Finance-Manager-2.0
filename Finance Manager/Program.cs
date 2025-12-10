@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Finance_Manager.UI.Forms;
 
 namespace Finance_Manager
 {
@@ -16,6 +17,8 @@ namespace Finance_Manager
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Dizain.ThemeManager.LoadTheme();
+
             Application.Run(new FinanceManagerMain());
         }
     }

@@ -326,12 +326,20 @@ VALUES (@CategoryId, @Amount, @Description, @TransactionDate, @IsIncome)";
             return list;
         }
 
-        public double GetBalance(DateTime? start, DateTime? end)
+
+
+        public (double Income, double Expense) GetIncomeAndExpense(DateTime? start, DateTime? end)
         {
-            string query = "SELECT SUM(Amount) FROM Transactions WHERE 1=1";
+            string query = @"
+        SELECT
+            SUM(CASE WHEN IsIncome = 1 THEN Amount ELSE 0 END),
+            SUM(CASE WHEN IsIncome = 0 THEN Amount ELSE 0 END)
+        FROM Transactions
+        WHERE 1=1
+    ";
 
             if (start.HasValue && end.HasValue)
-                query += " AND TransactionDate BETWEEN @Start AND @End ";
+                query += " AND TransactionDate BETWEEN @Start AND @End";
 
             using (var cmd = new SQLiteCommand(query, _connection))
             {
@@ -341,10 +349,23 @@ VALUES (@CategoryId, @Amount, @Description, @TransactionDate, @IsIncome)";
                     cmd.Parameters.AddWithValue("@End", end.Value);
                 }
 
-                object r = cmd.ExecuteScalar();
-                return r != DBNull.Value ? Convert.ToDouble(r) : 0;
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        double income = reader.IsDBNull(0) ? 0 : reader.GetDouble(0);
+                        double expense = reader.IsDBNull(1) ? 0 : reader.GetDouble(1);
+                        return (income, expense);
+                    }
+                }
             }
+
+            return (0, 0);
         }
+
+
+
+
 
 
         public void Dispose()

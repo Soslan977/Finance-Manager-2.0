@@ -27,6 +27,11 @@ namespace Finance_Manager
         public FinanceManagerMain()
         {
             InitializeComponent();
+
+
+
+
+
             AddMenuItems();
             Instance = this;
             ThemeManager.ApplyThemeToForm(this);
@@ -81,7 +86,7 @@ namespace Finance_Manager
 
         private void AddMenuItems()
         {
-            var items = new[] { "Категории", "Графики", "Регулярный платеж", "Дизайн", "Валюта" };
+            var items = new[] { "Категории", "Графики", "Дизайн" };
 
             foreach (var item in items)
             {
@@ -131,17 +136,11 @@ namespace Finance_Manager
                     ShowForm(new Graphicss());
                     break;
 
-                case "Регулярный платеж":
-                    MessageBox.Show("Функция пока не реализована.");
-                    break;
 
                 case "Дизайн":
                     ShowForm(new UI.Forms.Dizain());
                     break;
 
-                case "Валюта":
-                    ShowForm(new ChooseVallet());
-                    break;
             }
         }
 
@@ -171,9 +170,17 @@ namespace Finance_Manager
 
         private void UpdateBalance()
         {
-            double balance = _dbHelper.GetBalance(filterStart, filterEnd);
+            var summary = _dbHelper.GetIncomeAndExpense(filterStart, filterEnd);
+            double balance = summary.Income - summary.Expense;
+
             lblBalance.Text = $"Баланс: {balance:C}";
+            lblIncome.Text = $"Доходы: {summary.Income:C}";
+            lblExpense.Text = $"Расходы: {summary.Expense:C}";
         }
+
+            
+
+        
 
         private void AddTransaction_Click(object sender, EventArgs e)
         {
@@ -189,7 +196,8 @@ namespace Finance_Manager
             }
         }
 
-        
+
+
         private void numAmount_ValueChanged(object sender, EventArgs e)
         {
         }
@@ -213,8 +221,14 @@ namespace Finance_Manager
 
         private void btnMonth_Click(object sender, EventArgs e)
         {
-            filterStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-            filterEnd = DateTime.Today.AddDays(1).AddTicks(-1);
+            var today = DateTime.Today;
+            var firstDayOfCurrentMonth = new DateTime(today.Year, today.Month, today.Day);
+            var firstDayOfLastMonth = firstDayOfCurrentMonth.AddMonths(-1);
+
+            filterStart = firstDayOfLastMonth;
+
+            filterEnd = today.AddDays(1).AddTicks(-1);
+
             UpdateChart();
         }
 
@@ -244,6 +258,11 @@ namespace Finance_Manager
         {
             _dbHelper.Dispose();
             base.OnFormClosed(e);
+        }
+
+        private void lblIncome_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

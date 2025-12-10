@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Finance_Manager.UI.Forms
 {
@@ -36,6 +37,25 @@ namespace Finance_Manager.UI.Forms
 
             public static Color GetInputBack(ThemeType theme) =>
                 theme == ThemeType.Light ? Color.White : Color.FromArgb(45, 45, 45);
+
+            public static Color GetSecondaryBack(ThemeType theme) =>
+                theme == ThemeType.Light ? Color.FromArgb(245, 245, 245) : Color.FromArgb(40, 40, 40); //панели, карточеки, боковая панель
+
+            public static Color GetCardColor(ThemeType theme) =>
+                theme == ThemeType.Light ? Color.White : Color.FromArgb(45, 45, 45); 
+
+            public static Color GetAccentColor(ThemeType theme) =>
+                theme == ThemeType.Light ? Color.FromArgb(0, 122, 255) : Color.FromArgb(30, 144, 255); //для кнопок
+
+            public static Color GetBorderColor(ThemeType theme) =>
+                theme == ThemeType.Light ? Color.FromArgb(220, 220, 220) : Color.FromArgb(60, 60, 60);
+
+            public static Color GetChartGrid(ThemeType theme) =>
+                theme == ThemeType.Light ? Color.FromArgb(220, 220, 220) : Color.FromArgb(70, 70, 70);//для сетки графика
+
+            public static Color GetChartSeries(ThemeType theme) =>
+                theme == ThemeType.Light ? Color.FromArgb(0, 122, 255) : Color.FromArgb(0, 153, 255);//цвет столбцов/линий
+
         }
 
         public static class ThemeManager
@@ -127,8 +147,22 @@ namespace Finance_Manager.UI.Forms
                 }
                 else if (ctrl is GroupBox gb)
                 {
-                    gb.BackColor = ThemePalette.GetBackColor(theme);
+                    gb.BackColor = ThemePalette.GetCardColor(theme);
                     gb.ForeColor = ThemePalette.GetForeColor(theme);
+                    gb.Padding = new Padding(10);
+                }
+
+                else if (ctrl is Chart chart)
+                {
+                    chart.BackColor = ThemePalette.GetCardColor(theme);
+                    chart.ChartAreas[0].BackColor = ThemePalette.GetCardColor(theme);
+                    chart.ChartAreas[0].AxisX.LineColor = ThemePalette.GetBorderColor(theme);
+                    chart.ChartAreas[0].AxisY.LineColor = ThemePalette.GetBorderColor(theme);
+                    chart.ChartAreas[0].AxisX.MajorGrid.LineColor = ThemePalette.GetChartGrid(theme);
+                    chart.ChartAreas[0].AxisY.MajorGrid.LineColor = ThemePalette.GetChartGrid(theme);
+
+                    foreach (var series in chart.Series)
+                        series.Color = ThemePalette.GetChartSeries(theme);
                 }
 
                 if (ctrl.HasChildren)

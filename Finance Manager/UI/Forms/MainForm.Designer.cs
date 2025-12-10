@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FinanceManagerMain));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuPanel = new System.Windows.Forms.Panel();
             this.burgerButton = new System.Windows.Forms.Button();
@@ -46,6 +46,8 @@
             this.btnMonth = new System.Windows.Forms.Button();
             this.btnCustom = new System.Windows.Forms.Button();
             this.btnAllTransactions = new System.Windows.Forms.Button();
+            this.lblExpense = new System.Windows.Forms.Label();
+            this.lblIncome = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chartGraphic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -92,16 +94,16 @@
             // 
             // chartGraphic
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartGraphic.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartGraphic.Legends.Add(legend1);
+            chartArea6.Name = "ChartArea1";
+            this.chartGraphic.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.chartGraphic.Legends.Add(legend6);
             resources.ApplyResources(this.chartGraphic, "chartGraphic");
             this.chartGraphic.Name = "chartGraphic";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartGraphic.Series.Add(series1);
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.chartGraphic.Series.Add(series6);
             // 
             // lblBalance
             // 
@@ -143,10 +145,23 @@
             this.btnAllTransactions.UseVisualStyleBackColor = true;
             this.btnAllTransactions.Click += new System.EventHandler(this.btnAllTransactions_Click);
             // 
+            // lblExpense
+            // 
+            resources.ApplyResources(this.lblExpense, "lblExpense");
+            this.lblExpense.Name = "lblExpense";
+            // 
+            // lblIncome
+            // 
+            resources.ApplyResources(this.lblIncome, "lblIncome");
+            this.lblIncome.Name = "lblIncome";
+            this.lblIncome.Click += new System.EventHandler(this.lblIncome_Click);
+            // 
             // FinanceManagerMain
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblIncome);
+            this.Controls.Add(this.lblExpense);
             this.Controls.Add(this.btnAllTransactions);
             this.Controls.Add(this.btnCustom);
             this.Controls.Add(this.btnMonth);
@@ -184,6 +199,8 @@
         private System.Windows.Forms.Button btnMonth;
         private System.Windows.Forms.Button btnCustom;
         private System.Windows.Forms.Button btnAllTransactions;
+        private System.Windows.Forms.Label lblExpense;
+        private System.Windows.Forms.Label lblIncome;
     }
 }
 

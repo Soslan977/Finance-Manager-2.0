@@ -184,5 +184,6 @@ namespace Finance_Manager.UI.Forms
             this.Close();
         }
 
+
     }
 }

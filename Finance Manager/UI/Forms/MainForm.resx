@@ -154,7 +154,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menuPanel.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="burgerButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -181,7 +181,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;burgerButton.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="Расходы.Location" type="System.Drawing.Point, System.Drawing">
     <value>330, 12</value>
@@ -205,7 +205,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Расходы.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="Доходы.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -232,7 +232,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Доходы.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="AddTransaction.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -259,7 +259,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;AddTransaction.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="chartGraphic.Location" type="System.Drawing.Point, System.Drawing">
     <value>482, 167</value>
@@ -283,13 +283,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;chartGraphic.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
+  </data>
+  <data name="lblBalance.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
   </data>
   <data name="lblBalance.Location" type="System.Drawing.Point, System.Drawing">
-    <value>289, 296</value>
+    <value>234, 233</value>
   </data>
   <data name="lblBalance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 46</value>
+    <value>203, 36</value>
   </data>
   <data name="lblBalance.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -307,7 +310,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblBalance.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="btnToday.Location" type="System.Drawing.Point, System.Drawing">
     <value>396, 101</value>
@@ -331,7 +334,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnToday.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="btnWeek.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -358,7 +361,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnWeek.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="btnMonth.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -385,7 +388,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnMonth.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="btnCustom.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -412,7 +415,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnCustom.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="btnAllTransactions.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -439,7 +442,67 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnAllTransactions.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
+  </data>
+  <data name="lblExpense.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="lblExpense.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblExpense.Location" type="System.Drawing.Point, System.Drawing">
+    <value>234, 359</value>
+  </data>
+  <data name="lblExpense.Size" type="System.Drawing.Size, System.Drawing">
+    <value>203, 41</value>
+  </data>
+  <data name="lblExpense.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="lblExpense.Text" xml:space="preserve">
+    <value>Расходы</value>
+  </data>
+  <data name="&gt;&gt;lblExpense.Name" xml:space="preserve">
+    <value>lblExpense</value>
+  </data>
+  <data name="&gt;&gt;lblExpense.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblExpense.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblExpense.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lblIncome.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="lblIncome.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblIncome.Location" type="System.Drawing.Point, System.Drawing">
+    <value>234, 297</value>
+  </data>
+  <data name="lblIncome.Size" type="System.Drawing.Size, System.Drawing">
+    <value>203, 44</value>
+  </data>
+  <data name="lblIncome.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="lblIncome.Text" xml:space="preserve">
+    <value>Доходы</value>
+  </data>
+  <data name="&gt;&gt;lblIncome.Name" xml:space="preserve">
+    <value>lblIncome</value>
+  </data>
+  <data name="&gt;&gt;lblIncome.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblIncome.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblIncome.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -449,6 +512,9 @@
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
+  </data>
+  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>1039, 598</value>

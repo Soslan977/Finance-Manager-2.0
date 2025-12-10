@@ -88,10 +88,10 @@
             // 
             // txtIncomeInput
             // 
-            this.txtIncomeInput.Location = new System.Drawing.Point(6, 510);
+            this.txtIncomeInput.Location = new System.Drawing.Point(18, 510);
             this.txtIncomeInput.Name = "txtIncomeInput";
             this.txtIncomeInput.Size = new System.Drawing.Size(100, 20);
-            this.txtIncomeInput.TabIndex = 3;
+            this.txtIncomeInput.TabIndex = 5;
             // 
             // listBoxIncome
             // 
@@ -138,7 +138,7 @@
             // 
             // txtExpenseInput
             // 
-            this.txtExpenseInput.Location = new System.Drawing.Point(6, 510);
+            this.txtExpenseInput.Location = new System.Drawing.Point(15, 510);
             this.txtExpenseInput.Name = "txtExpenseInput";
             this.txtExpenseInput.Size = new System.Drawing.Size(100, 20);
             this.txtExpenseInput.TabIndex = 3;
